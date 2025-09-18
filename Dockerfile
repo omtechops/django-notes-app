@@ -1,20 +1,14 @@
-FROM python:3.9
+FROM python:3.10-slim
 
-WORKDIR /app/backend
+WORKDIR /app
 
-COPY requirements.txt /app/backend
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y gcc default-libmysqlclient-dev pkg-config \
-    && rm -rf /var/lib/apt/lists/*
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
+COPY . .
 
-# Install app dependencies
-RUN pip install mysqlclient
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . /app/backend
-
+# Expose Django port
 EXPOSE 8001
-#RUN python manage.py migrate
-#RUN python manage.py makemigrations
+
+# Run the app
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8001"]
