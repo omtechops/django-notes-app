@@ -1,14 +1,14 @@
-FROM python:3.10-slim
+FROM python:3.9
 
-WORKDIR /app
+WORKDIR /app/backend
 
-COPY requirements.txt .
+COPY requirements.txt /app/backend
 RUN pip install -r requirements.txt
 
-COPY . .
+COPY . /app/backend
 
 # Expose Django port
-EXPOSE 8001
+EXPOSE 8000
 
 # Run the app
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8001"]
+CMD python /app/backendmanage.py runserver 0.0.0.0:8000
