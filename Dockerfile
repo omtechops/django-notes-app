@@ -1,11 +1,11 @@
-FROM python:3.10-slim
+FROM python:3.9
 
-WORKDIR /app
+WORKDIR /app/backend
 
-COPY requirements.txt .
+COPY requirements.txt /app/backend
 RUN pip install -r requirements.txt
 
-COPY . .
+COPY . /app/backend
 
 # Expose Django port
 EXPOSE 8000
